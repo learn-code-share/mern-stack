@@ -17,14 +17,14 @@ class App extends Component {
             <Link to="/" className="navbar-brand">
               MERN Stack Demo
             </Link>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <li className="nav-item">
                   <Link to="/" className="nav-link">
                     Todos
                   </Link>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <Link to="/create" className="nav-link">
                     Add
                   </Link>
