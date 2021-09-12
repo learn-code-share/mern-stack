@@ -5,11 +5,6 @@ export default class CreateTodo extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeTodoDescription = this.onChangeTodoDescription.bind(this);
-    this.onChangeTodoTitle = this.onChangeTodoTitle.bind(this);
-    this.onChangeTodoPriority = this.onChangeTodoPriority.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-
     this.state = {
       description: "",
       title: "",
@@ -17,24 +12,15 @@ export default class CreateTodo extends Component {
       completed: false,
       message: "",
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChangeTodoDescription(e) {
-    this.setState({
-      description: e.target.value,
-    });
-  }
-
-  onChangeTodoTitle(e) {
-    this.setState({
-      title: e.target.value,
-    });
-  }
-
-  onChangeTodoPriority(e) {
-    this.setState({
-      priority: e.target.value,
-    });
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    this.setState({ [target.name]: value });
   }
 
   onSubmit(e) {
@@ -67,8 +53,9 @@ export default class CreateTodo extends Component {
             <input
               type="text"
               className="form-control"
+              name="title"
               value={this.state.title}
-              onChange={this.onChangeTodoTitle}
+              onChange={this.handleInputChange}
             />
           </div>
           <div className="form-group">
@@ -76,9 +63,10 @@ export default class CreateTodo extends Component {
             <textarea
               type="text"
               className="form-control"
+              name="description"
               rows="3"
               value={this.state.description}
-              onChange={this.onChangeTodoDescription}
+              onChange={this.handleInputChange}
             ></textarea>
           </div>
           <div className="form-group">
@@ -87,11 +75,11 @@ export default class CreateTodo extends Component {
                 <input
                   className="form-check-input"
                   type="radio"
-                  name="priorityOptions"
+                  name="priority"
                   id="priorityLow"
                   value="Low"
                   checked={this.state.priority === "Low"}
-                  onChange={this.onChangeTodoPriority}
+                  onChange={this.handleInputChange}
                 />
                 Low
               </label>
@@ -102,11 +90,11 @@ export default class CreateTodo extends Component {
                 <input
                   className="form-check-input"
                   type="radio"
-                  name="priorityOptions"
+                  name="priority"
                   id="priorityMedium"
                   value="Medium"
                   checked={this.state.priority === "Medium"}
-                  onChange={this.onChangeTodoPriority}
+                  onChange={this.handleInputChange}
                 />
               </label>
             </div>
@@ -115,11 +103,11 @@ export default class CreateTodo extends Component {
                 <input
                   className="form-check-input"
                   type="radio"
-                  name="priorityOptions"
+                  name="priority"
                   id="priorityHigh"
                   value="High"
                   checked={this.state.priority === "High"}
-                  onChange={this.onChangeTodoPriority}
+                  onChange={this.handleInputChange}
                 />
                 High
               </label>

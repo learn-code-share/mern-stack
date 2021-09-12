@@ -5,12 +5,6 @@ export default class EditTodo extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeTodoDescription = this.onChangeTodoDescription.bind(this);
-    this.onChangeTodoTitle = this.onChangeTodoTitle.bind(this);
-    this.onChangeTodoPriority = this.onChangeTodoPriority.bind(this);
-    this.onChangeTodoCompleted = this.onChangeTodoCompleted.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-
     this.state = {
       description: "",
       title: "",
@@ -18,6 +12,9 @@ export default class EditTodo extends Component {
       completed: false,
       message: "",
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -36,28 +33,10 @@ export default class EditTodo extends Component {
       });
   }
 
-  onChangeTodoDescription(e) {
-    this.setState({
-      description: e.target.value,
-    });
-  }
-
-  onChangeTodoTitle(e) {
-    this.setState({
-      title: e.target.value,
-    });
-  }
-
-  onChangeTodoPriority(e) {
-    this.setState({
-      priority: e.target.value,
-    });
-  }
-
-  onChangeTodoCompleted(e) {
-    this.setState({
-      completed: !this.state.completed,
-    });
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    this.setState({ [target.name]: value });
   }
 
   onSubmit(e) {
@@ -86,19 +65,21 @@ export default class EditTodo extends Component {
             <label>title: </label>
             <input
               type="text"
+              name="title"
               className="form-control"
               value={this.state.title}
-              onChange={this.onChangeTodoTitle}
+              onChange={this.handleInputChange}
             />
           </div>
           <div className="form-group">
             <label>Description: </label>
             <textarea
               type="text"
+              name="description"
               className="form-control"
               rows="3"
               value={this.state.description}
-              onChange={this.onChangeTodoDescription}
+              onChange={this.handleInputChange}
             ></textarea>
           </div>
           <div className="form-group">
@@ -106,11 +87,11 @@ export default class EditTodo extends Component {
               <input
                 className="form-check-input"
                 type="radio"
-                name="priorityOptions"
+                name="priority"
                 id="priorityLow"
                 value="Low"
                 checked={this.state.priority === "Low"}
-                onChange={this.onChangeTodoPriority}
+                onChange={this.handleInputChange}
               />
               <label className="form-check-label">Low</label>
             </div>
@@ -118,11 +99,11 @@ export default class EditTodo extends Component {
               <input
                 className="form-check-input"
                 type="radio"
-                name="priorityOptions"
+                name="priority"
                 id="priorityMedium"
                 value="Medium"
                 checked={this.state.priority === "Medium"}
-                onChange={this.onChangeTodoPriority}
+                onChange={this.handleInputChange}
               />
               <label className="form-check-label">Medium</label>
             </div>
@@ -130,11 +111,11 @@ export default class EditTodo extends Component {
               <input
                 className="form-check-input"
                 type="radio"
-                name="priorityOptions"
+                name="priority"
                 id="priorityHigh"
                 value="High"
                 checked={this.state.priority === "High"}
-                onChange={this.onChangeTodoPriority}
+                onChange={this.handleInputChange}
               />
               <label className="form-check-label">High</label>
             </div>
@@ -144,8 +125,8 @@ export default class EditTodo extends Component {
               className="form-check-input"
               id="completedCheckbox"
               type="checkbox"
-              name="completedCheckbox"
-              onChange={this.onChangeTodoCompleted}
+              name="completed"
+              onChange={this.handleInputChange}
               checked={this.state.completed}
               value={this.state.completed}
             />
